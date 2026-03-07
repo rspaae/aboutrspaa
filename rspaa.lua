@@ -1,1 +1,0 @@
-LogToConsole("HELLO KONTOL")
