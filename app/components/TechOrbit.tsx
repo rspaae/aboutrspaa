@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import anime from 'animejs';
 import ScrollReveal from './ScrollReveal';
+import TextScramble from './TextScramble';
 
 const techItems = [
     { name: 'React', color: '#61DAFB' },
@@ -11,6 +12,9 @@ const techItems = [
     { name: 'Tailwind', color: '#06B6D4' },
     { name: 'Node.js', color: '#339933' },
     { name: 'Python', color: '#3776AB' },
+    { name: 'Unity', color: '#ffffff' },
+    { name: 'Godot', color: '#478CBF' },
+    { name: 'Lua', color: '#000080' },
     { name: 'PostgreSQL', color: '#4169E1' },
     { name: 'Git', color: '#F05032' },
 ];
@@ -45,7 +49,7 @@ export default function TechOrbit() {
                             <div className="h-px w-[60px]" style={{ background: 'linear-gradient(90deg, var(--neon-violet), transparent)' }} />
                         </div>
                         <h2 className="section-heading text-4xl md:text-5xl gradient-text">
-                            Tech Stack
+                            <TextScramble text="Tech Stack" as="span" />
                         </h2>
                     </div>
                 </ScrollReveal>

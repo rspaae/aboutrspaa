@@ -10,9 +10,10 @@ interface ProjectCardProps {
     image?: string;
     link?: string;
     color?: string;
+    stars?: number;
 }
 
-export default function ProjectCard({ title, description, tags, link, color = '#8b5cf6' }: ProjectCardProps) {
+export default function ProjectCard({ title, description, tags, link, color = '#8b5cf6', stars }: ProjectCardProps) {
     const cardRef = useRef<HTMLDivElement>(null);
 
     const handleMouseEnter = () => {
@@ -72,13 +73,22 @@ export default function ProjectCard({ title, description, tags, link, color = '#
                     </svg>
                 </div>
 
-                {/* Title */}
-                <h3
-                    className="text-xl font-bold mb-3 tracking-tight"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                >
-                    {title}
-                </h3>
+                <div className="flex items-center justify-between mb-3">
+                    <h3
+                        className="text-xl font-bold tracking-tight"
+                        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                    >
+                        {title}
+                    </h3>
+                    {stars !== undefined && (
+                        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-yellow-500/90">
+                            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                            </svg>
+                            {stars}
+                        </div>
+                    )}
+                </div>
 
                 {/* Description */}
                 <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--text-secondary)' }}>

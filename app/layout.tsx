@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import CustomCursor from "./components/CustomCursor";
+import MouseSpotlight from "./components/MouseSpotlight";
+import SmoothScroll from "./components/SmoothScroll";
+import CommitStatus from "./components/CommitStatus";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -40,7 +44,12 @@ export default function RootLayout({
           fontFamily: "'Inter', sans-serif",
         }}
       >
-        {children}
+        <SmoothScroll>
+          <CustomCursor />
+          <MouseSpotlight />
+          <CommitStatus />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

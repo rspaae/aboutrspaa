@@ -32,7 +32,7 @@ export default function MeshGradientBg() {
                 className="mesh-blob absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full opacity-20"
                 style={{
                     background: 'radial-gradient(circle, rgba(0,245,255,0.4) 0%, transparent 70%)',
-                    filter: 'blur(80px)',
+                    filter: 'blur(50px)',
                 }}
             />
             {/* Bottom-right magenta blob */}
@@ -40,7 +40,7 @@ export default function MeshGradientBg() {
                 className="mesh-blob absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full opacity-15"
                 style={{
                     background: 'radial-gradient(circle, rgba(255,0,229,0.4) 0%, transparent 70%)',
-                    filter: 'blur(100px)',
+                    filter: 'blur(60px)',
                 }}
             />
             {/* Center violet blob */}
@@ -48,7 +48,7 @@ export default function MeshGradientBg() {
                 className="mesh-blob absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-10"
                 style={{
                     background: 'radial-gradient(circle, rgba(139,92,246,0.5) 0%, transparent 70%)',
-                    filter: 'blur(90px)',
+                    filter: 'blur(50px)',
                 }}
             />
             {/* Top-right blue blob */}
@@ -56,7 +56,7 @@ export default function MeshGradientBg() {
                 className="mesh-blob absolute -top-20 right-1/4 w-[350px] h-[350px] rounded-full opacity-15"
                 style={{
                     background: 'radial-gradient(circle, rgba(59,130,246,0.4) 0%, transparent 70%)',
-                    filter: 'blur(70px)',
+                    filter: 'blur(45px)',
                 }}
             />
             {/* Bottom-left green-teal blob */}
@@ -64,7 +64,7 @@ export default function MeshGradientBg() {
                 className="mesh-blob absolute bottom-1/4 -left-20 w-[300px] h-[300px] rounded-full opacity-10"
                 style={{
                     background: 'radial-gradient(circle, rgba(16,185,129,0.35) 0%, transparent 70%)',
-                    filter: 'blur(80px)',
+                    filter: 'blur(50px)',
                 }}
             />
         </div>

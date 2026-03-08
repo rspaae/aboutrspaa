@@ -1,6 +1,8 @@
 'use client';
 
 import ScrollReveal from './ScrollReveal';
+import TiltCard from './TiltCard';
+import TextScramble from './TextScramble';
 
 export default function AboutSection() {
     return (
@@ -20,9 +22,11 @@ export default function AboutSection() {
                                 className="section-heading text-4xl md:text-5xl mb-6"
                                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                             >
-                                Crafting Digital
+                                <TextScramble text="Crafting Digital" as="span" />
                                 <br />
-                                <span className="gradient-text">Experiences</span>
+                                <span className="gradient-text">
+                                    <TextScramble text="Experiences" as="span" />
+                                </span>
                             </h2>
                             <p className="text-base leading-relaxed mb-6" style={{ color: 'var(--text-secondary)' }}>
                                 I&apos;m a passionate full-stack developer with a keen eye for design and a love for creating
@@ -60,7 +64,7 @@ export default function AboutSection() {
                     <ScrollReveal direction="right" delay={200}>
                         <div className="relative flex items-center justify-center">
                             {/* Abstract decorative card */}
-                            <div className="glass-card relative w-full max-w-[380px] aspect-square flex items-center justify-center overflow-hidden">
+                            <TiltCard className="glass-card relative w-full max-w-[380px] aspect-square flex items-center justify-center overflow-hidden">
                                 {/* Gradient circles */}
                                 <div
                                     className="absolute w-48 h-48 rounded-full"
@@ -99,7 +103,7 @@ export default function AboutSection() {
                                         <span style={{ color: 'var(--neon-green)' }}>name</span>: <span style={{ color: '#fbbf24' }}>&apos;Rafa Ramdani&apos;</span>,
                                     </div>
                                     <div className="pl-4" style={{ color: 'var(--text-secondary)' }}>
-                                        <span style={{ color: 'var(--neon-green)' }}>role</span>: <span style={{ color: '#fbbf24' }}>&apos;Full-Stack Dev&apos;</span>,
+                                        <span style={{ color: 'var(--neon-green)' }}>role</span>: <span style={{ color: '#fbbf24' }}>&apos;Multi-Disciplinary Dev&apos;</span>,
                                     </div>
                                     <div className="pl-4" style={{ color: 'var(--text-secondary)' }}>
                                         <span style={{ color: 'var(--neon-green)' }}>passion</span>: <span style={{ color: '#fbbf24' }}>&apos;∞&apos;</span>,
@@ -109,7 +113,7 @@ export default function AboutSection() {
                                     </div>
                                     <div style={{ color: 'var(--text-muted)' }}>{'}'}</div>
                                 </div>
-                            </div>
+                            </TiltCard>
 
                             {/* Floating badge */}
                             <div

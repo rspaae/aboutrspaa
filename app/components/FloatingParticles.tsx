@@ -1,119 +1,101 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
-
-interface Particle {
-    el: HTMLDivElement;
-    x: number;
-    y: number;
-    baseX: number;
-    baseY: number;
-    size: number;
-}
 
 export default function FloatingParticles() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const particlesRef = useRef<Particle[]>([]);
-    const mouseRef = useRef({ x: -1000, y: -1000 });
-    const rafRef = useRef<number>(0);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
-        if (!containerRef.current) return;
-        const container = containerRef.current;
-        const particles: Particle[] = [];
-        const count = 35;
+        const canvas = canvasRef.current;
+        if (!canvas) return;
 
-        for (let i = 0; i < count; i++) {
-            const el = document.createElement('div');
-            const size = Math.random() * 4 + 1;
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
 
-            el.style.cssText = `
-        position: absolute;
-        width: ${size}px;
-        height: ${size}px;
-        border-radius: 50%;
-        background: ${Math.random() > 0.5
-                    ? `rgba(0, 245, 255, ${Math.random() * 0.4 + 0.1})`
-                    : `rgba(139, 92, 246, ${Math.random() * 0.4 + 0.1})`
-                };
-        left: ${x}px;
-        top: ${y}px;
-        pointer-events: none;
-        transition: none;
-      `;
+        let w = window.innerWidth;
+        let h = window.innerHeight;
+        canvas.width = w;
+        canvas.height = h;
 
-            container.appendChild(el);
-            particles.push({ el, x, y, baseX: x, baseY: y, size });
+        const mouse = { x: -1000, y: -1000 };
+        const count = 25;
 
-            // Idle floating animation
-            anime({
-                targets: el,
-                translateX: () => anime.random(-60, 60),
-                translateY: () => anime.random(-60, 60),
-                opacity: [
-                    { value: Math.random() * 0.5 + 0.2, duration: anime.random(2000, 4000) },
-                    { value: Math.random() * 0.3 + 0.1, duration: anime.random(2000, 4000) },
-                ],
-                easing: 'easeInOutSine',
-                duration: anime.random(5000, 10000),
-                direction: 'alternate',
-                loop: true,
-                delay: anime.random(0, 3000),
-            });
-        }
-
-        particlesRef.current = particles;
+        // Create particles as plain data
+        const particles = Array.from({ length: count }, () => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            baseX: 0,
+            baseY: 0,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            size: Math.random() * 2.5 + 0.8,
+            isCyan: Math.random() > 0.5,
+            alpha: Math.random() * 0.3 + 0.1,
+        }));
+        particles.forEach(p => { p.baseX = p.x; p.baseY = p.y; });
 
         const handleMouseMove = (e: MouseEvent) => {
-            mouseRef.current = { x: e.clientX, y: e.clientY };
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
+        const handleResize = () => {
+            w = window.innerWidth;
+            h = window.innerHeight;
+            canvas.width = w;
+            canvas.height = h;
+        };
 
-        // Cursor-reactive loop
-        const react = () => {
-            const mx = mouseRef.current.x;
-            const my = mouseRef.current.y;
-            particles.forEach((p) => {
-                const rect = p.el.getBoundingClientRect();
-                const px = rect.left + rect.width / 2;
-                const py = rect.top + rect.height / 2;
-                const dx = px - mx;
-                const dy = py - my;
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
+        window.addEventListener('resize', handleResize, { passive: true });
+
+        let raf: number;
+        const draw = () => {
+            ctx.clearRect(0, 0, w, h);
+
+            for (const p of particles) {
+                // Idle float
+                p.x += p.vx;
+                p.y += p.vy;
+
+                // Bounce off edges gently
+                if (p.x < 0 || p.x > w) p.vx *= -1;
+                if (p.y < 0 || p.y > h) p.vy *= -1;
+
+                // Mouse repulsion (simple distance check, no DOM calls)
+                const dx = p.x - mouse.x;
+                const dy = p.y - mouse.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                const maxDist = 150;
-
-                if (dist < maxDist) {
-                    const force = (1 - dist / maxDist) * 30;
-                    const ax = (dx / dist) * force;
-                    const ay = (dy / dist) * force;
-                    anime({
-                        targets: p.el,
-                        translateX: `+=${ax}`,
-                        translateY: `+=${ay}`,
-                        duration: 300,
-                        easing: 'easeOutQuad',
-                    });
+                if (dist < 120 && dist > 0) {
+                    const force = (1 - dist / 120) * 1.5;
+                    p.x += (dx / dist) * force;
+                    p.y += (dy / dist) * force;
                 }
-            });
-            rafRef.current = requestAnimationFrame(react);
+
+                // Draw
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = p.isCyan
+                    ? `rgba(0, 245, 255, ${p.alpha})`
+                    : `rgba(139, 92, 246, ${p.alpha})`;
+                ctx.fill();
+            }
+
+            raf = requestAnimationFrame(draw);
         };
-        rafRef.current = requestAnimationFrame(react);
+        raf = requestAnimationFrame(draw);
 
         return () => {
+            cancelAnimationFrame(raf);
             window.removeEventListener('mousemove', handleMouseMove);
-            cancelAnimationFrame(rafRef.current);
-            particles.forEach((p) => p.el.remove());
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
 
     return (
-        <div
-            ref={containerRef}
-            className="fixed inset-0 overflow-hidden pointer-events-none"
+        <canvas
+            ref={canvasRef}
+            className="fixed inset-0 pointer-events-none"
             style={{ zIndex: 1 }}
         />
     );
