@@ -5,8 +5,6 @@ import CustomCursor from "./components/CustomCursor";
 import MouseSpotlight from "./components/MouseSpotlight";
 import SmoothScroll from "./components/SmoothScroll";
 import CommitStatus from "./components/CommitStatus";
-import ServiceWorkerRegister from "./components/ServiceWorkerRegister";
-import InstallPrompt from "./components/InstallPrompt";
 import { LanguageProvider } from "./context/LanguageContext";
 
 const outfit = Outfit({
@@ -27,12 +25,6 @@ export const metadata: Metadata = {
     "Portfolio of RSPAA — Full-stack developer crafting stunning, interactive digital experiences with modern web technologies.",
   keywords: ["portfolio", "developer", "web development", "react", "next.js", "full-stack"],
   authors: [{ name: "RSPAA" }],
-  manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "RSPAA",
-  },
   icons: {
     icon: "/icons/icon-192.png",
     apple: "/icons/icon-192.png",
@@ -66,8 +58,6 @@ export default function RootLayout({
             <CustomCursor />
             <MouseSpotlight />
             <CommitStatus />
-            <ServiceWorkerRegister />
-            <InstallPrompt />
             {children}
           </SmoothScroll>
         </LanguageProvider>

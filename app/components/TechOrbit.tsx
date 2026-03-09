@@ -4,19 +4,20 @@ import { useEffect, useRef } from 'react';
 import ScrollReveal from './ScrollReveal';
 import TextScramble from './TextScramble';
 import { useLanguage } from '../context/LanguageContext';
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiPython, SiUnity, SiGodotengine, SiLua, SiPostgresql, SiGit } from 'react-icons/si';
 
 const techItems = [
-    { name: 'React', color: '#61DAFB', icon: '⚛️' },
-    { name: 'Next.js', color: '#ffffff', icon: '▲' },
-    { name: 'TypeScript', color: '#3178C6', icon: 'TS' },
-    { name: 'Tailwind', color: '#06B6D4', icon: '🎨' },
-    { name: 'Node.js', color: '#339933', icon: '🟢' },
-    { name: 'Python', color: '#3776AB', icon: '🐍' },
-    { name: 'Unity', color: '#ffffff', icon: '🎮' },
-    { name: 'Godot', color: '#478CBF', icon: '🕹️' },
-    { name: 'Lua', color: '#000080', icon: '🌙' },
-    { name: 'PostgreSQL', color: '#4169E1', icon: '🐘' },
-    { name: 'Git', color: '#F05032', icon: '🔀' },
+    { name: 'React', color: '#61DAFB', icon: <SiReact size={20} /> },
+    { name: 'Next.js', color: '#ffffff', icon: <SiNextdotjs size={20} /> },
+    { name: 'TypeScript', color: '#3178C6', icon: <SiTypescript size={20} /> },
+    { name: 'Tailwind', color: '#06B6D4', icon: <SiTailwindcss size={20} /> },
+    { name: 'Node.js', color: '#339933', icon: <SiNodedotjs size={20} /> },
+    { name: 'Python', color: '#3776AB', icon: <SiPython size={20} /> },
+    { name: 'Unity', color: '#ffffff', icon: <SiUnity size={20} /> },
+    { name: 'Godot', color: '#478CBF', icon: <SiGodotengine size={20} /> },
+    { name: 'Lua', color: '#000080', icon: <SiLua size={20} /> },
+    { name: 'PostgreSQL', color: '#4169E1', icon: <SiPostgresql size={20} /> },
+    { name: 'Git', color: '#F05032', icon: <SiGit size={20} /> },
 ];
 
 export default function TechOrbit() {
