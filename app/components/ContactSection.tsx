@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import ScrollReveal from './ScrollReveal';
 import MagneticButton from './MagneticButton';
 import TextScramble from './TextScramble';
+import Toast from './Toast';
 import { useLanguage } from '../context/LanguageContext';
 
 const socialLinks = [
@@ -40,9 +42,26 @@ const socialLinks = [
 
 export default function ContactSection() {
     const { t } = useLanguage();
+    const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+    const handleCopyEmail = () => {
+        const email = 'hello@rspaa.dev';
+        navigator.clipboard.writeText(email).then(() => {
+            setToast({ message: t('contact.copied') || 'Email copied to clipboard!', type: 'success' });
+        }).catch(() => {
+            setToast({ message: 'Failed to copy email.', type: 'error' });
+        });
+    };
 
     return (
         <section id="contact" className="relative py-24 md:py-32" style={{ zIndex: 2 }}>
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => setToast(null)}
+                />
+            )}
             {/* Top accent line */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] h-px" style={{ background: 'linear-gradient(90deg, transparent, var(--neon-cyan), transparent)' }} />
 
@@ -67,13 +86,19 @@ export default function ContactSection() {
 
                 {/* CTA Button */}
                 <ScrollReveal delay={200}>
-                    <div className="mb-16">
+                    <div className="mb-16 flex flex-col items-center gap-4">
                         <MagneticButton
-                            href="mailto:hello@rspaa.dev"
+                            onClick={handleCopyEmail}
                             className="!px-10 !py-4 !text-base !bg-gradient-to-r !from-neon-cyan/20 !to-neon-violet/20 !border-neon-violet/30"
                         >
                             <span className="gradient-text font-bold">{t('contact.send')} 👋</span>
                         </MagneticButton>
+                        <button
+                            onClick={handleCopyEmail}
+                            className="text-xs opacity-40 hover:opacity-100 transition-opacity uppercase tracking-widest cursor-pointer"
+                        >
+                            Click to copy: hello@rspaa.dev
+                        </button>
                     </div>
                 </ScrollReveal>
 

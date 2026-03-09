@@ -40,7 +40,7 @@ export default function AboutSection() {
                             {/* Stats */}
                             <div className="grid grid-cols-3 gap-6">
                                 {[
-                                    { number: '3+', label: t('about.experience') },
+                                    { number: '1+', label: t('about.experience') },
                                     { number: '20+', label: t('about.projects') },
                                     { number: '10+', label: t('tech.title') },
                                 ].map((stat) => (

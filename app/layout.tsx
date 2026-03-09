@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "./components/CustomCursor";
 import MouseSpotlight from "./components/MouseSpotlight";
 import SmoothScroll from "./components/SmoothScroll";
 import CommitStatus from "./components/CommitStatus";
+import ServiceWorkerRegister from "./components/ServiceWorkerRegister";
 import { LanguageProvider } from "./context/LanguageContext";
 
 const outfit = Outfit({
@@ -25,11 +26,25 @@ export const metadata: Metadata = {
     "Portfolio of RSPAA — Full-stack developer crafting stunning, interactive digital experiences with modern web technologies.",
   keywords: ["portfolio", "developer", "web development", "react", "next.js", "full-stack"],
   authors: [{ name: "RSPAA" }],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "RSPAA",
+  },
+  icons: {
+    icon: "/icons/icon-192.png",
+    apple: "/icons/icon-192.png",
+  },
   openGraph: {
     title: "RSPAA | Creative Developer & Designer",
     description: "Full-stack developer crafting stunning, interactive digital experiences.",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#050510",
 };
 
 export default function RootLayout({
@@ -50,6 +65,7 @@ export default function RootLayout({
             <CustomCursor />
             <MouseSpotlight />
             <CommitStatus />
+            <ServiceWorkerRegister />
             {children}
           </SmoothScroll>
         </LanguageProvider>

@@ -278,13 +278,9 @@ body {
   }
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: 100% 50%;
-  }
-
+@keyframes shimmer-skeleton {
   100% {
-    background-position: -200% 50%;
+    transform: translateX(100%);
   }
 }
 

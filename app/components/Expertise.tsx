@@ -74,38 +74,62 @@ export default function Expertise() {
                     </div>
                 </ScrollReveal>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {expertiseItems.map((item, i) => (
-                        <ScrollReveal key={item.title} delay={i * 100} direction="up">
-                            <TiltCard className="h-full">
-                                <div className="glass-card p-8 h-full flex flex-col border border-white/5 group hover:border-white/10 transition-colors">
-                                    <div
-                                        className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110"
-                                        style={{
-                                            background: `${item.color}15`,
-                                            border: `1px solid ${item.color}30`,
-                                            boxShadow: `0 0 30px ${item.color}10`,
-                                            color: item.color
-                                        }}
-                                    >
-                                        {item.icon}
+                <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+                    {expertiseItems.map((item, i) => {
+                        const gridClasses = [
+                            "md:col-span-2 md:row-span-2", // Web Developer (Big)
+                            "md:col-span-2 md:row-span-1", // Game Developer (Wide)
+                            "md:col-span-1 md:row-span-1", // Scripter (Small)
+                            "md:col-span-1 md:row-span-1", // Bot Developer (Small)
+                        ];
+
+                        return (
+                            <ScrollReveal key={item.title} delay={i * 100} direction="up" className={gridClasses[i]}>
+                                <TiltCard className="h-full">
+                                    <div className="glass-card p-8 h-full flex flex-col border border-white/5 group hover:border-white/10 transition-all duration-500 relative overflow-hidden">
+                                        {/* Background Glow */}
+                                        <div
+                                            className="absolute -right-10 -top-10 w-32 h-32 blur-[100px] opacity-20 transition-opacity group-hover:opacity-40"
+                                            style={{ backgroundColor: item.color }}
+                                        />
+
+                                        <div
+                                            className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-lg"
+                                            style={{
+                                                background: `linear-gradient(135deg, ${item.color}20, ${item.color}10)`,
+                                                border: `1px solid ${item.color}40`,
+                                                boxShadow: `0 8px 32px ${item.color}20`,
+                                                color: item.color
+                                            }}
+                                        >
+                                            {item.icon}
+                                        </div>
+
+                                        <div className="mt-auto">
+                                            <div className="text-xs uppercase tracking-[0.2em] mb-2 opacity-60 font-bold" style={{ color: item.color }}>
+                                                {item.role}
+                                            </div>
+                                            <h3
+                                                className="text-2xl font-bold mb-3 tracking-tight group-hover:text-white transition-colors"
+                                                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                                            >
+                                                {item.title}
+                                            </h3>
+                                            <p className="text-sm leading-relaxed opacity-60 group-hover:opacity-90 transition-opacity">
+                                                {item.description}
+                                            </p>
+                                        </div>
+
+                                        {/* Decorative Corner */}
+                                        <div
+                                            className="absolute bottom-4 right-4 w-2 h-2 rounded-full opacity-20 group-hover:opacity-100 transition-opacity shadow-[0_0_10px_currentcolor]"
+                                            style={{ backgroundColor: item.color, color: item.color }}
+                                        />
                                     </div>
-                                    <h3
-                                        className="text-xl font-bold mb-1 tracking-tight group-hover:text-white transition-colors"
-                                        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                                    >
-                                        {item.title}
-                                    </h3>
-                                    <div className="text-xs uppercase tracking-widest mb-4 opacity-50 font-bold" style={{ color: item.color }}>
-                                        {item.role}
-                                    </div>
-                                    <p className="text-sm leading-relaxed opacity-70 group-hover:opacity-100 transition-opacity">
-                                        {item.description}
-                                    </p>
-                                </div>
-                            </TiltCard>
-                        </ScrollReveal>
-                    ))}
+                                </TiltCard>
+                            </ScrollReveal>
+                        );
+                    })}
                 </div>
             </div>
         </section>

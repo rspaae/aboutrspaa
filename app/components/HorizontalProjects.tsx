@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from 'react';
 import anime from 'animejs';
 import ProjectCard from './ProjectCard';
+import SkeletonLoader from './SkeletonLoader';
 import ScrollReveal from './ScrollReveal';
 import TextScramble from './TextScramble';
 import { getRepositories, Repository } from '../lib/github';
@@ -152,7 +153,7 @@ export default function HorizontalProjects() {
                         {loading ? (
                             // Loading Skeleton
                             Array.from({ length: 4 }).map((_, i) => (
-                                <div key={i} className="glass-card w-[340px] md:w-[400px] h-[300px] animate-pulse bg-white/5" />
+                                <SkeletonLoader key={i} className="w-[340px] md:w-[400px] h-[300px]" />
                             ))
                         ) : (
                             duplicatedProjects.map((project, i) => (
